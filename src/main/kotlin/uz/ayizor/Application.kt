@@ -1,15 +1,15 @@
 package uz.ayizor
 
 import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 import uz.ayizor.plugins.*
 
-fun main(args: Array<String>): Unit =
-    io.ktor.server.netty.EngineMain.main(args)
-
-@Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
-fun Application.module() {
-    configureSecurity()
-    configureMonitoring()
-    configureSerialization()
-    configureRouting()
+fun main() {
+    embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+        configureSecurity()
+        configureMonitoring()
+        configureSerialization()
+        configureRouting()
+    }.start(wait = true)
 }
