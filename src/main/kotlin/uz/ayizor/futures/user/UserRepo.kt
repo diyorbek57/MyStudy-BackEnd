@@ -9,9 +9,12 @@ class UserRepo {
     suspend fun addUser(user: User) {
         dbQuery {
             UserTable.insert { ut ->
-                ut[UserTable.id] = user.id
-                ut[UserTable.first_name] = user.first_name
-                ut[UserTable.last_name] = user.last_name
+                ut[id] = user.id
+                ut[first_name] = user.first_name
+                ut[last_name] = user.last_name
+                ut[phone_number] = user.phone_number
+                ut[password] = user.password
+                ut[birthday] = user.birthday
             }
         }
     }
@@ -30,7 +33,10 @@ class UserRepo {
         return User(
             id = row[UserTable.id],
             first_name = row[UserTable.first_name],
-            last_name = row[UserTable.last_name]
+            last_name = row[UserTable.last_name],
+            phone_number = row[UserTable.phone_number],
+            password = row[UserTable.password],
+            birthday = row[UserTable.birthday],
         )
     }
 }
